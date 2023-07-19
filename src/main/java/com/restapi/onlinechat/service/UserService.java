@@ -14,6 +14,14 @@ public class UserService {
 	public User saveUser(User user) {
 		return userRepository.save(user);
 	}
+
+	public User getUserByUsername(String userName) {
+		return userRepository.findByUserName(userName).stream().findFirst().orElse(null);
+	}
+
+	public boolean passwordMatches(String password, String userPassword) {
+		return password.equals(userPassword);
+	}
 	
 	
 
