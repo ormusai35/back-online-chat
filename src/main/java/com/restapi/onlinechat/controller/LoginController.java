@@ -1,7 +1,5 @@
 package com.restapi.onlinechat.controller;
 
-import javax.websocket.server.PathParam;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,8 +23,8 @@ public class LoginController {
 	
 	@GetMapping(path="login")
 	public ResponseEntity<User> login(@RequestParam String userName, @RequestParam String password){
-		System.out.println(userName + "\n" + password);
 		User user = userService.getUserByUsername(userName);
+		System.out.println(user);
         if (user == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(user);
         }
@@ -39,8 +37,14 @@ public class LoginController {
 	}
 	
 	@PostMapping(path="create-user")
-	public ResponseEntity<User> createUser(@RequestBody User user) {
-		System.out.println(user);
-		return ResponseEntity.ok(user);
+	public ResponseEntity<User> createUser(@RequestBody User newUser) {
+		System.out.println(newUser);
+		User user = userService.saveUser(newUser);
+		if(user != null) {
+			return ResponseEntity.status(HttpStatus.CREATED).body(user);
+		} else {
+			return ResponseEntity.status(HttpStatus.NOT_MODIFIED).body(user);
+		}
+		
 	}
 }
