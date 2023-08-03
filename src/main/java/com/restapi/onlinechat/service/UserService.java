@@ -1,5 +1,7 @@
 package com.restapi.onlinechat.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.restapi.onlinechat.model.User;
@@ -21,6 +23,10 @@ public class UserService {
 
 	public boolean passwordMatches(String password, String userPassword) {
 		return password.equals(userPassword);
+	}
+
+	public List<User> getAllUsers() {
+		return userRepository.findAll();
 	}
 	
 	

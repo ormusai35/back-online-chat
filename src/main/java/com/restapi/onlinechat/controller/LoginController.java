@@ -1,5 +1,7 @@
 package com.restapi.onlinechat.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +22,11 @@ public class LoginController {
 
 	@Autowired
 	private UserService userService;
+	
+	@GetMapping(path="get-users")
+	public ResponseEntity<List<User>> getAllUsers(){
+		return ResponseEntity.ok(userService.getAllUsers());
+	}
 	
 	@GetMapping(path="login")
 	public ResponseEntity<User> login(@RequestParam String userName, @RequestParam String password){
