@@ -24,6 +24,8 @@ public class ContactService {
 	}
 
 	public Contact addContact(Contact newContact, long userId) {
+		System.out.println(newContact);
+		System.out.println(userId);
 		User user = userRepository.findById(userId).get();
 		newContact.setUser(user);
 		return contactRepository.save(newContact);

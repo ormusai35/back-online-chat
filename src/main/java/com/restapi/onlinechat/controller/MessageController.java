@@ -33,6 +33,7 @@ public class MessageController {
 	@PostMapping(path="send-message")
 	public ResponseEntity<Message> sendMessage(@RequestParam Long contactId, @RequestBody Message newMessage){
 		Message message = messageService.addMessage(contactId, newMessage);
+		System.out.println(message);
 		return message == null ? 
 				ResponseEntity.status(HttpStatus.NOT_MODIFIED).build()
 				: ResponseEntity.ok(message);
