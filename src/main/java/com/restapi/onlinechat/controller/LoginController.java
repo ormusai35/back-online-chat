@@ -2,6 +2,9 @@ package com.restapi.onlinechat.controller;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +22,8 @@ import com.restapi.onlinechat.service.UserService;
 @CrossOrigin(origins="http://localhost:4200/")
 @RestController
 public class LoginController {
+	
+	private static Logger LOG = LoggerFactory.getLogger(LoginController.class);
 
 	@Autowired
 	private UserService userService;
@@ -30,8 +35,9 @@ public class LoginController {
 	
 	@GetMapping(path="login")
 	public ResponseEntity<User> login(@RequestParam String userName, @RequestParam String password){
+		LOG.info("Login: userName: " + userName + " password: " + password);
+		
 		User user = userService.getUserByUsername(userName);
-		System.out.println(user);
         if (user == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(user);
         }

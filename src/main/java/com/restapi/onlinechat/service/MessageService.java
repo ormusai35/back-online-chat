@@ -1,6 +1,7 @@
 package com.restapi.onlinechat.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,8 +25,13 @@ public class MessageService {
 	}
 
 	public Message addMessage(long contactId, Message message) {
-		Contact contact = contactRepository.findById(contactId).get();
-		message.setContact(contact);
-		return messageRepository.save(message);
+		Optional<Contact> opContact = contactRepository.findById(contactId);
+		if(opContact.isPresent()) {
+			Contact contact = opContact.get();
+			message.setContact(contact);
+			message.setContact(contact);
+			return messageRepository.save(message);
+		}
+		return null;
 	}
 }

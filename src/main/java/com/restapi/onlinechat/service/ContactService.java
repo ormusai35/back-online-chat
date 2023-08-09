@@ -34,5 +34,9 @@ public class ContactService {
 	public Contact getContactById(long contactId) {
 		return contactRepository.findById(contactId).get();
 	}
+
+	public List<Contact> getContactsByUserId(Long userId) {
+		return contactRepository.getContactsByUserId(userId);
+	}
 	
 }
