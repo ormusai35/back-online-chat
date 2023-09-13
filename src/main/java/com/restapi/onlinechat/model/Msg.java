@@ -15,9 +15,9 @@ import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-@Entity(name="messages")
-public class Message {
-    @Id
+@Entity(name="msgs")
+public class Msg {
+	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "message_id")
     private Long id;
@@ -26,12 +26,14 @@ public class Message {
     private String content;
 
     @ManyToOne
-    @JoinColumn(name = "contact_id")
+    @JoinColumn(name = "sender_id")
     @JsonIgnore
-    private Chat chat;
+    private User sender;
     
     @ManyToOne
-    private User sender;
+    @JoinColumn(name = "receiver_id")
+    @JsonIgnore
+    private User receiver;
     
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date timestamp;
@@ -57,20 +59,20 @@ public class Message {
 		this.content = content;
 	}
 
-	public Chat getChat() {
-		return chat;
-	}
-
-	public void setChat(Chat chat) {
-		this.chat = chat;
-	}
-
 	public User getSender() {
 		return sender;
 	}
 
 	public void setSender(User sender) {
 		this.sender = sender;
+	}
+
+	public User getReceiver() {
+		return receiver;
+	}
+
+	public void setReciever(User receiver) {
+		this.receiver = receiver;
 	}
 
 	public Date getTimestamp() {
@@ -81,4 +83,10 @@ public class Message {
 		this.timestamp = timestamp;
 	}
 
+	@Override
+	public String toString() {
+		return "Msg [id=" + id + ", content=" + content + ", sender=" + sender + ", receiver=" + receiver
+				+ ", timestamp=" + timestamp + "]";
+	}
+	
 }

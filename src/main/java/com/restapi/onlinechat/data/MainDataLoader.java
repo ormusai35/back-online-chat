@@ -21,14 +21,20 @@ public class MainDataLoader implements CommandLineRunner {
 	
 	@Override
 	public void run(String... args) throws Exception {
-		User user = new User();
-		user.setEmail("or@gmail.com");
-		user.setPassword("123");
-		user.setUserName("ormusa");
-		userRepository.save(user);
+		User user1 = new User();
+		user1.setEmail("or@gmail.com");
+		user1.setUserName("or");
+		user1.setPassword("12345678");
+		userRepository.save(user1);
+		
+		User user2 = new User();
+		user2.setEmail("s@gmail.com");
+		user2.setUserName("s");
+		user2.setPassword("11111111");
+		userRepository.save(user2);
 		
 		Contact contact = new Contact("Asaf", "https://s3-us-west-2.amazonaws.com/s.cdpn.io/1940306/chat_avatar_01.jpg", "offline");
-		contact.setUser(user);
+		contact.setUser(user1);
 		contactRepository.save(contact);
 	}
 }

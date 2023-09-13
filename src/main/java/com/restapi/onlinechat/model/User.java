@@ -10,6 +10,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.Temporal;
@@ -17,7 +19,7 @@ import javax.persistence.TemporalType;
 
 @Entity(name="users")
 public class User implements Serializable{
-	
+
 	/**
 	 * 
 	 */
@@ -25,27 +27,27 @@ public class User implements Serializable{
 
 	@GeneratedValue()
 	@Id
-    @Column(name = "user_id")
+	@Column(name = "user_id")
 	private long id;
-	
+
 	@Column(name = "user_name")
 	private String userName;
-	
+
 	@Column(name = "email")
 	private String email;
-	
+
 	@Column(name = "password")
 	private String password;
-	
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Contact> contacts = new ArrayList<>();
-	
+
+	//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+	//    private List<Contact> contacts = new ArrayList<>();
+
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date timestamp;
-	
+
 	@PrePersist
 	private void onCreate() {
-	    timestamp = new Date();
+		timestamp = new Date();
 	}
 
 	public long getId() {
@@ -78,14 +80,6 @@ public class User implements Serializable{
 
 	public void setPassword(String password) {
 		this.password = password;
-	}
-
-	public List<Contact> getContacts() {
-		return contacts;
-	}
-
-	public void setContacts(List<Contact> contacts) {
-		this.contacts = contacts;
 	}
 
 	public Date getTimestamp() {
